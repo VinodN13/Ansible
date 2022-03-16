@@ -1,0 +1,29 @@
+-
+  name: "Install nginx, configure it"
+  hosts: all
+  become: true
+  vars:
+          dom_name: hello6.vinodtestingkubeace.tk
+  tasks:
+          - name: "Install nginx"
+            apt:
+                    name: nginx
+                    state: latest
+          - name: "Copy the file content"
+            copy:
+                    src: index1.html
+                    dest: /var/www/{{ dom_name }}/html/index.html
+          - name: "Nginx configuration file"
+            copy:
+                    src: index2
+                    dest: /etc/nginx/sites-available/{{ dom_name }}
+          - name: "Symlink the file"
+            file:
+                    src: /etc/nginx/sites-available/{{ dom_name }}
+                    dest: /etc/nginx/sites-enabled/default
+                    state: link
+          - name: "Nginx restart"
+            service:
+                    name: nginx
+                    state: restarted
+          - name: Install Certbot's package
