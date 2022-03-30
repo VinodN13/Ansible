@@ -27,3 +27,14 @@
                     name: nginx
                     state: restarted
           - name: Install Certbot's package
+            apt:
+                    name: certbot
+                    state: latest
+                    update_cache: yes
+          - name: Install Certbot's package
+            apt:
+                    name: python3-certbot-nginx
+                    state: latest
+                    update_cache: yes
+          - name: Certbot certificate
+            command: certbot run -n --nginx --agree-tos -d {{ dom_name }}  -m abcd@gmail.com  --redirect
