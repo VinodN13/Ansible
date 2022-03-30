@@ -3,7 +3,7 @@
   hosts: all
   become: true
   vars:
-          dom_name: hello6.vinodtestingkubeace.tk
+          dom_name: abc.anything.com
   tasks:
           - name: "Install nginx"
             apt:
